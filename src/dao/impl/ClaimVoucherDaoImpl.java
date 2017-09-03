@@ -6,14 +6,25 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import dao.ClaimVoucherDao;
 import po.BizClaimVoucher;
-
+@Repository
 public class ClaimVoucherDaoImpl extends HibernateDaoSupport implements ClaimVoucherDao {
-
+	@Autowired
+	public void setSuperSessionFactory(SessionFactory sessionFactory) {
+		
+		super.setSessionFactory(sessionFactory);
+		
+	}
+	
+	
+	
 	@Override
 	public void save(BizClaimVoucher claimVoucher) {
 		

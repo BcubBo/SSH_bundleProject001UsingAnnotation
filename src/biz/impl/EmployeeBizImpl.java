@@ -5,11 +5,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import biz.EmployeeBiz;
 import dao.EmployeeDao;
 import po.SysEmployee;
-
 public class EmployeeBizImpl extends HibernateDaoSupport implements EmployeeBiz {
 	
 	private EmployeeDao employeeDao;
-	
+
 	@Override
 	public SysEmployee checkLogin(SysEmployee emp) {
 		SysEmployee result = employeeDao.findById(emp.getSn());
