@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * BizCheckResult entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "BIZ_CHECK_RESULT", schema = "BCUBBO3")
+@Table(name = "BIZ_CHECK_RESULT")
 public class BizCheckResult implements java.io.Serializable {
 
 	// Fields

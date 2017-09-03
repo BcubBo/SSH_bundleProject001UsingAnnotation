@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * SysEmployee entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_EMPLOYEE", schema = "BCUBBO3")
+@Table(name = "SYS_EMPLOYEE")
 public class SysEmployee implements java.io.Serializable {
 
 	// Fields

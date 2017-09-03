@@ -8,9 +8,9 @@
 <listener>
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 </listener>
-<listener>
+<!-- <listener>
 	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-</listener>
+</listener> -->
 <filter>
 	<filter-name>OpenSessionInViewFilter</filter-name>
 	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
