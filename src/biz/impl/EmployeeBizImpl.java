@@ -1,11 +1,14 @@
 package biz.impl;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import biz.EmployeeBiz;
 import dao.EmployeeDao;
 import po.SysEmployee;
-public class EmployeeBizImpl extends HibernateDaoSupport implements EmployeeBiz {
+
+@Service
+public class EmployeeBizImpl implements EmployeeBiz {
 	
 	private EmployeeDao employeeDao;
 
@@ -24,15 +27,9 @@ public class EmployeeBizImpl extends HibernateDaoSupport implements EmployeeBiz 
 		
 	}
 
-
-	
-	
-	
-	
-	
 	
 	//setter 和 getter获取位置
-	
+	@Autowired
 	public void setEmployeeDao(EmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}//employeeDao获取
