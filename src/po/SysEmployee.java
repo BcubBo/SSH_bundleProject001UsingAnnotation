@@ -2,11 +2,24 @@ package po;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * SysEmployee entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "SYS_EMPLOYEE", schema = "BDQN")
 public class SysEmployee implements java.io.Serializable {
 
 	// Fields
@@ -17,8 +30,10 @@ public class SysEmployee implements java.io.Serializable {
 	private String name;
 	private String password;
 	private String status;
-	private Set bizClaimVouchersForNextDealSn = new HashSet(0);
-	private Set bizClaimVouchersForCreateSn = new HashSet(0);
+	private Set<BizClaimVoucher> bizClaimVouchersForNextDealSn = new HashSet<BizClaimVoucher>(
+			0);
+	private Set<BizClaimVoucher> bizClaimVouchersForCreateSn = new HashSet<BizClaimVoucher>(
+			0);
 
 	// Constructors
 
@@ -27,8 +42,9 @@ public class SysEmployee implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public SysEmployee(SysDepartment sysDepartment, SysPosition sysPosition,
+	public SysEmployee(String sn, SysDepartment sysDepartment, SysPosition sysPosition,
 			String name, String password, String status) {
+		this.sn = sn;
 		this.sysDepartment = sysDepartment;
 		this.sysPosition = sysPosition;
 		this.name = name;
@@ -37,9 +53,11 @@ public class SysEmployee implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SysEmployee(SysDepartment sysDepartment, SysPosition sysPosition,
+	public SysEmployee(String sn, SysDepartment sysDepartment, SysPosition sysPosition,
 			String name, String password, String status,
-			Set bizClaimVouchersForNextDealSn, Set bizClaimVouchersForCreateSn) {
+			Set<BizClaimVoucher> bizClaimVouchersForNextDealSn,
+			Set<BizClaimVoucher> bizClaimVouchersForCreateSn) {
+		this.sn = sn;
 		this.sysDepartment = sysDepartment;
 		this.sysPosition = sysPosition;
 		this.name = name;
@@ -50,7 +68,10 @@ public class SysEmployee implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp")
+	@SequenceGenerator(name = "emp", sequenceName = "HIBERNATE_SEQUENCE", allocationSize = 1)
+	@Column(name = "SN", unique = true, nullable = false, length = 50)
 	public String getSn() {
 		return this.sn;
 	}
@@ -59,6 +80,8 @@ public class SysEmployee implements java.io.Serializable {
 		this.sn = sn;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DEPARTMENT_ID")
 	public SysDepartment getSysDepartment() {
 		return this.sysDepartment;
 	}
@@ -67,6 +90,8 @@ public class SysEmployee implements java.io.Serializable {
 		this.sysDepartment = sysDepartment;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "POSITION_ID")
 	public SysPosition getSysPosition() {
 		return this.sysPosition;
 	}
@@ -75,6 +100,7 @@ public class SysEmployee implements java.io.Serializable {
 		this.sysPosition = sysPosition;
 	}
 
+	@Column(name = "NAME", length = 50)
 	public String getName() {
 		return this.name;
 	}
@@ -83,6 +109,7 @@ public class SysEmployee implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@Column(name = "PASSWORD", length = 50)
 	public String getPassword() {
 		return this.password;
 	}
@@ -91,6 +118,7 @@ public class SysEmployee implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "STATUS", length = 20)
 	public String getStatus() {
 		return this.status;
 	}
@@ -99,20 +127,23 @@ public class SysEmployee implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Set getBizClaimVouchersForNextDealSn() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysEmployeeByNextDealSn")
+	public Set<BizClaimVoucher> getBizClaimVouchersForNextDealSn() {
 		return this.bizClaimVouchersForNextDealSn;
 	}
 
 	public void setBizClaimVouchersForNextDealSn(
-			Set bizClaimVouchersForNextDealSn) {
+			Set<BizClaimVoucher> bizClaimVouchersForNextDealSn) {
 		this.bizClaimVouchersForNextDealSn = bizClaimVouchersForNextDealSn;
 	}
 
-	public Set getBizClaimVouchersForCreateSn() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysEmployeeByCreateSn")
+	public Set<BizClaimVoucher> getBizClaimVouchersForCreateSn() {
 		return this.bizClaimVouchersForCreateSn;
 	}
 
-	public void setBizClaimVouchersForCreateSn(Set bizClaimVouchersForCreateSn) {
+	public void setBizClaimVouchersForCreateSn(
+			Set<BizClaimVoucher> bizClaimVouchersForCreateSn) {
 		this.bizClaimVouchersForCreateSn = bizClaimVouchersForCreateSn;
 	}
 

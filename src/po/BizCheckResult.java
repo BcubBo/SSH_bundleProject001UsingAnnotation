@@ -1,18 +1,29 @@
 package po;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * BizCheckResult entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "BIZ_CHECK_RESULT", schema = "BDQN")
 public class BizCheckResult implements java.io.Serializable {
 
 	// Fields
 
 	private Long id;
 	private BizClaimVoucher bizClaimVoucher;
-	private Date checkTime;
+	private Timestamp checkTime;
 	private String checkerSn;
 	private String result;
 	private String comm;
@@ -24,8 +35,9 @@ public class BizCheckResult implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public BizCheckResult(BizClaimVoucher bizClaimVoucher, Date checkTime,
-			String checkerSn, String result, String comm) {
+	public BizCheckResult(Long id, BizClaimVoucher bizClaimVoucher,
+			Timestamp checkTime, String checkerSn, String result, String comm) {
+		this.id = id;
 		this.bizClaimVoucher = bizClaimVoucher;
 		this.checkTime = checkTime;
 		this.checkerSn = checkerSn;
@@ -34,7 +46,10 @@ public class BizCheckResult implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chk_result")
+	@SequenceGenerator(name = "chk_result", sequenceName = "SEQ_CHECK_RESULT", allocationSize = 1)
+	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
 	public Long getId() {
 		return this.id;
 	}
@@ -43,6 +58,8 @@ public class BizCheckResult implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CLAIM_ID")
 	public BizClaimVoucher getBizClaimVoucher() {
 		return this.bizClaimVoucher;
 	}
@@ -51,14 +68,16 @@ public class BizCheckResult implements java.io.Serializable {
 		this.bizClaimVoucher = bizClaimVoucher;
 	}
 
-	public Date getCheckTime() {
+	@Column(name = "CHECK_TIME", length = 7)
+	public Timestamp getCheckTime() {
 		return this.checkTime;
 	}
 
-	public void setCheckTime(Date checkTime) {
+	public void setCheckTime(Timestamp checkTime) {
 		this.checkTime = checkTime;
 	}
 
+	@Column(name = "CHECKER_SN", length = 50)
 	public String getCheckerSn() {
 		return this.checkerSn;
 	}
@@ -67,6 +86,7 @@ public class BizCheckResult implements java.io.Serializable {
 		this.checkerSn = checkerSn;
 	}
 
+	@Column(name = "RESULT", length = 50)
 	public String getResult() {
 		return this.result;
 	}
@@ -75,6 +95,7 @@ public class BizCheckResult implements java.io.Serializable {
 		this.result = result;
 	}
 
+	@Column(name = "COMM", length = 500)
 	public String getComm() {
 		return this.comm;
 	}

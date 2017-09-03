@@ -1,13 +1,26 @@
 package po;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * BizClaimVoucher entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "BIZ_CLAIM_VOUCHER", schema = "BDQN")
 public class BizClaimVoucher implements java.io.Serializable {
 
 	// Fields
@@ -15,13 +28,14 @@ public class BizClaimVoucher implements java.io.Serializable {
 	private Long id;
 	private SysEmployee sysEmployeeByNextDealSn;
 	private SysEmployee sysEmployeeByCreateSn;
-	private Date createTime;
+	private Timestamp createTime;
 	private String event;
 	private Double totalAccount;
 	private String status;
-	private Date modifyTime;
-	private Set bizCheckResults = new HashSet(0);
-	private Set bizClaimVoucherDetails = new HashSet(0);
+	private Timestamp modifyTime;
+	private Set<BizCheckResult> bizCheckResults = new HashSet<BizCheckResult>(0);
+	private Set<BizClaimVoucherDetail> bizClaimVoucherDetails = new HashSet<BizClaimVoucherDetail>(
+			0);
 
 	// Constructors
 
@@ -30,8 +44,10 @@ public class BizClaimVoucher implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public BizClaimVoucher(SysEmployee sysEmployeeByCreateSn, Date createTime,
-			String event, Double totalAccount, String status) {
+	public BizClaimVoucher(Long id, SysEmployee sysEmployeeByCreateSn,
+			Timestamp createTime, String event, Double totalAccount,
+			String status) {
+		this.id = id;
 		this.sysEmployeeByCreateSn = sysEmployeeByCreateSn;
 		this.createTime = createTime;
 		this.event = event;
@@ -40,10 +56,12 @@ public class BizClaimVoucher implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public BizClaimVoucher(SysEmployee sysEmployeeByNextDealSn,
-			SysEmployee sysEmployeeByCreateSn, Date createTime, String event,
-			Double totalAccount, String status, Date modifyTime,
-			Set bizCheckResults, Set bizClaimVoucherDetails) {
+	public BizClaimVoucher(Long id, SysEmployee sysEmployeeByNextDealSn,
+			SysEmployee sysEmployeeByCreateSn, Timestamp createTime,
+			String event, Double totalAccount, String status,
+			Timestamp modifyTime, Set<BizCheckResult> bizCheckResults,
+			Set<BizClaimVoucherDetail> bizClaimVoucherDetails) {
+		this.id = id;
 		this.sysEmployeeByNextDealSn = sysEmployeeByNextDealSn;
 		this.sysEmployeeByCreateSn = sysEmployeeByCreateSn;
 		this.createTime = createTime;
@@ -56,7 +74,10 @@ public class BizClaimVoucher implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "claim_voucher")
+	@SequenceGenerator(name = "claim_voucher", sequenceName = "SEQ_VOUCHER", allocationSize = 1)
+	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
 	public Long getId() {
 		return this.id;
 	}
@@ -65,6 +86,8 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "NEXT_DEAL_SN")
 	public SysEmployee getSysEmployeeByNextDealSn() {
 		return this.sysEmployeeByNextDealSn;
 	}
@@ -73,6 +96,8 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.sysEmployeeByNextDealSn = sysEmployeeByNextDealSn;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATE_SN")
 	public SysEmployee getSysEmployeeByCreateSn() {
 		return this.sysEmployeeByCreateSn;
 	}
@@ -81,14 +106,16 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.sysEmployeeByCreateSn = sysEmployeeByCreateSn;
 	}
 
-	public Date getCreateTime() {
+	@Column(name = "CREATE_TIME", length = 7)
+	public Timestamp getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
+	@Column(name = "EVENT")
 	public String getEvent() {
 		return this.event;
 	}
@@ -97,6 +124,7 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.event = event;
 	}
 
+	@Column(name = "TOTAL_ACCOUNT", precision = 20)
 	public Double getTotalAccount() {
 		return this.totalAccount;
 	}
@@ -105,6 +133,7 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.totalAccount = totalAccount;
 	}
 
+	@Column(name = "STATUS", length = 20)
 	public String getStatus() {
 		return this.status;
 	}
@@ -113,27 +142,31 @@ public class BizClaimVoucher implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Date getModifyTime() {
+	@Column(name = "MODIFY_TIME", length = 7)
+	public Timestamp getModifyTime() {
 		return this.modifyTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
 	}
 
-	public Set getBizCheckResults() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bizClaimVoucher")
+	public Set<BizCheckResult> getBizCheckResults() {
 		return this.bizCheckResults;
 	}
 
-	public void setBizCheckResults(Set bizCheckResults) {
+	public void setBizCheckResults(Set<BizCheckResult> bizCheckResults) {
 		this.bizCheckResults = bizCheckResults;
 	}
 
-	public Set getBizClaimVoucherDetails() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bizClaimVoucher")
+	public Set<BizClaimVoucherDetail> getBizClaimVoucherDetails() {
 		return this.bizClaimVoucherDetails;
 	}
 
-	public void setBizClaimVoucherDetails(Set bizClaimVoucherDetails) {
+	public void setBizClaimVoucherDetails(
+			Set<BizClaimVoucherDetail> bizClaimVoucherDetails) {
 		this.bizClaimVoucherDetails = bizClaimVoucherDetails;
 	}
 
