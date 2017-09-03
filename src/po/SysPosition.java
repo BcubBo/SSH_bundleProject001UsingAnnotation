@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * SysPosition entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_POSITION", schema = "BDQN")
+@Table(name = "SYS_POSITION", schema = "BCUBBO3")
 public class SysPosition implements java.io.Serializable {
 
 	// Fields

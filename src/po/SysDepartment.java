@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * SysDepartment entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_DEPARTMENT", schema = "BDQN")
+@Table(name = "SYS_DEPARTMENT", schema = "BCUBBO3")
 public class SysDepartment implements java.io.Serializable {
 
 	// Fields

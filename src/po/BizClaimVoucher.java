@@ -1,6 +1,6 @@
 package po;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * BizClaimVoucher entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "BIZ_CLAIM_VOUCHER", schema = "BDQN")
+@Table(name = "BIZ_CLAIM_VOUCHER", schema = "BCUBBO3")
 public class BizClaimVoucher implements java.io.Serializable {
 
 	// Fields
@@ -28,11 +28,11 @@ public class BizClaimVoucher implements java.io.Serializable {
 	private Long id;
 	private SysEmployee sysEmployeeByNextDealSn;
 	private SysEmployee sysEmployeeByCreateSn;
-	private Timestamp createTime;
+	private Date createTime;
 	private String event;
 	private Double totalAccount;
 	private String status;
-	private Timestamp modifyTime;
+	private Date modifyTime;
 	private Set<BizCheckResult> bizCheckResults = new HashSet<BizCheckResult>(0);
 	private Set<BizClaimVoucherDetail> bizClaimVoucherDetails = new HashSet<BizClaimVoucherDetail>(
 			0);
@@ -45,7 +45,7 @@ public class BizClaimVoucher implements java.io.Serializable {
 
 	/** minimal constructor */
 	public BizClaimVoucher(Long id, SysEmployee sysEmployeeByCreateSn,
-			Timestamp createTime, String event, Double totalAccount,
+			Date createTime, String event, Double totalAccount,
 			String status) {
 		this.id = id;
 		this.sysEmployeeByCreateSn = sysEmployeeByCreateSn;
@@ -57,9 +57,9 @@ public class BizClaimVoucher implements java.io.Serializable {
 
 	/** full constructor */
 	public BizClaimVoucher(Long id, SysEmployee sysEmployeeByNextDealSn,
-			SysEmployee sysEmployeeByCreateSn, Timestamp createTime,
+			SysEmployee sysEmployeeByCreateSn, Date createTime,
 			String event, Double totalAccount, String status,
-			Timestamp modifyTime, Set<BizCheckResult> bizCheckResults,
+			Date modifyTime, Set<BizCheckResult> bizCheckResults,
 			Set<BizClaimVoucherDetail> bizClaimVoucherDetails) {
 		this.id = id;
 		this.sysEmployeeByNextDealSn = sysEmployeeByNextDealSn;
@@ -107,11 +107,11 @@ public class BizClaimVoucher implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATE_TIME", length = 7)
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -143,11 +143,11 @@ public class BizClaimVoucher implements java.io.Serializable {
 	}
 
 	@Column(name = "MODIFY_TIME", length = 7)
-	public Timestamp getModifyTime() {
+	public Date getModifyTime() {
 		return this.modifyTime;
 	}
 
-	public void setModifyTime(Timestamp modifyTime) {
+	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
 

@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * BizClaimVoucherDetail entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "BIZ_CLAIM_VOUCHER_DETAIL", schema = "BDQN")
+@Table(name = "BIZ_CLAIM_VOUCHER_DETAIL", schema = "BCUBBO3")
 public class BizClaimVoucherDetail implements java.io.Serializable {
 
 	// Fields

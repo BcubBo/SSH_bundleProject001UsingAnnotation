@@ -1,6 +1,6 @@
 package po;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,14 +16,14 @@ import javax.persistence.Table;
  * BizCheckResult entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "BIZ_CHECK_RESULT", schema = "BDQN")
+@Table(name = "BIZ_CHECK_RESULT", schema = "BCUBBO3")
 public class BizCheckResult implements java.io.Serializable {
 
 	// Fields
 
 	private Long id;
 	private BizClaimVoucher bizClaimVoucher;
-	private Timestamp checkTime;
+	private Date checkTime;
 	private String checkerSn;
 	private String result;
 	private String comm;
@@ -36,7 +36,7 @@ public class BizCheckResult implements java.io.Serializable {
 
 	/** full constructor */
 	public BizCheckResult(Long id, BizClaimVoucher bizClaimVoucher,
-			Timestamp checkTime, String checkerSn, String result, String comm) {
+			Date checkTime, String checkerSn, String result, String comm) {
 		this.id = id;
 		this.bizClaimVoucher = bizClaimVoucher;
 		this.checkTime = checkTime;
@@ -69,11 +69,11 @@ public class BizCheckResult implements java.io.Serializable {
 	}
 
 	@Column(name = "CHECK_TIME", length = 7)
-	public Timestamp getCheckTime() {
+	public Date getCheckTime() {
 		return this.checkTime;
 	}
 
-	public void setCheckTime(Timestamp checkTime) {
+	public void setCheckTime(Date checkTime) {
 		this.checkTime = checkTime;
 	}
 
