@@ -4,7 +4,8 @@
 	"D:\JARPack\struts2lib\struts-2.3.dtd">
 
 <struts>
-<!-- 	<constant name="struts.objectFactory.spring.autoWire" value="type"></constant> -->
+	<constant name="struts.objectFactory.spring.autoWire" value="type"></constant>
+	<!-- 更改为type注入方式 -->
 	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="true" /> -->
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="utf-8"/>

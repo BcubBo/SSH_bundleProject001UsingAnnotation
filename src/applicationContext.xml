@@ -55,9 +55,10 @@
 			</list>
 		</property>
 	</bean>
-	<import resource="classpath:applicationContext_dao.xml"/>
-	<import resource="classpath:applicationContext_biz.xml"/>
-	<import resource="classpath:applicationContext_action.xml"/>
-	
-	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
+	</bean>
+	<context:component-scan base-package="biz,dao"></context:component-scan>'
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<tx:annotation-driven/>
 </beans>
