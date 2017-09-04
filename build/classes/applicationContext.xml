@@ -16,7 +16,7 @@
 	<context:property-placeholder location="classpath:jdbc.properties"/>	
 	<!-- 配置dataSource -->
 	<!-- dbcp/c3po/proxool -->
-	<bean id="dataSource"
+<!-- 	<bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:bcubbo"></property>
@@ -25,6 +25,19 @@
 		<property name="maxTotal" value="100"></property>
 		<property name="maxIdle" value="10"></property>
 		<property name="maxWaitMillis" value="10000"></property>	
+		
+	</bean> -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driver}"></property>
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="user" value="bcubbo3"></property>
+		<property name="password" value="BcubBo001"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="checkoutTimeout" value="${checkoutTimeout}"></property>
+		<property name="initialPoolSize" value="${initPoolSize}"></property>
+		<property name="maxIdleTime"	value="${maxIdleTime}"></property>	
 		
 	</bean>
 	<bean id="sessionFactory"
