@@ -31,13 +31,14 @@
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${driver}"></property>
 		<property name="jdbcUrl" value="${url}"></property>
-		<property name="user" value="bcubbo3"></property>
-		<property name="password" value="BcubBo001"></property>
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
 		<property name="maxPoolSize" value="${maxPoolSize}"></property>
 		<property name="minPoolSize" value="${minPoolSize}"></property>
 		<property name="checkoutTimeout" value="${checkoutTimeout}"></property>
+		<property name="maxIdleTime"	value="${maxIdleTime}"></property>
 		<property name="initialPoolSize" value="${initPoolSize}"></property>
-		<property name="maxIdleTime"	value="${maxIdleTime}"></property>	
+			
 		
 	</bean>
 	<bean id="sessionFactory"
